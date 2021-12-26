@@ -1,0 +1,17 @@
+.label {
+	-fx-font-family: "Arial";
+}
+
+#ErrorMessgae {
+	-fx-color: Green;
+	-fx-font-family: sans-serif;
+	-fx-alignment: center;
+}
+
+#WelcomeMessage {
+	-fx-color: Yellow;
+}
+
+#textLabel {
+	-fx-alignment: center;
+}

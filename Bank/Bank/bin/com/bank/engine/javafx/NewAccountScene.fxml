@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="466.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bank.engine.javafx.NewAccountSceneController">
+   <children>
+      <Button layoutX="50.0" layoutY="360.0" mnemonicParsing="false" onAction="#createNewAccount" text="Create new account">
+         <font>
+            <Font size="25.0" />
+         </font></Button>
+      <Label layoutX="33.0" layoutY="165.0" text="Username" />
+      <Label layoutX="35.0" layoutY="196.0" text="Password" />
+      <TextField fx:id="usernameTextField" layoutX="102.0" layoutY="161.0" />
+      <TextField fx:id="passwordTextField" layoutX="102.0" layoutY="192.0" />
+      <TextField fx:id="firstNameTextField" layoutX="102.0" layoutY="223.0" prefHeight="17.0" prefWidth="149.0" />
+      <TextField fx:id="lastNameTextField" layoutX="102.0" layoutY="255.0" />
+      <TextField fx:id="cityTextField" layoutX="366.0" layoutY="192.0" />
+      <TextField fx:id="zipcodeTextField" layoutX="366.0" layoutY="223.0" />
+      <TextField fx:id="streetTextField" layoutX="366.0" layoutY="255.0" />
+      <TextField fx:id="houseNumberTextField" layoutX="366.0" layoutY="287.0" />
+      <Label layoutX="31.0" layoutY="227.0" text="First Name" />
+      <Label layoutX="32.0" layoutY="259.0" text="Last Name" />
+      <Label layoutX="331.0" layoutY="196.0" text="City" />
+      <Label layoutX="315.0" layoutY="227.0" text="Zip Code" />
+      <Label layoutX="325.0" layoutY="259.0" text="Street" />
+      <Label layoutX="275.0" layoutY="291.0" text="House Number" />
+      <TextField fx:id="stateTextField" layoutX="366.0" layoutY="161.0" />
+      <Label layoutX="328.0" layoutY="165.0" text="State" />
+      <Label fx:id="invalidInput" layoutX="124.0" layoutY="31.0" text="Invalid input!" textFill="#dd0b0b">
+         <font>
+            <Font name="HoloLens MDL2 Assets" size="62.0" />
+         </font>
+      </Label>
+      <Label fx:id="welcomeText" layoutX="140.0" layoutY="37.0" text="Welcome!" textFill="#0d56db">
+         <font>
+            <Font name="HoloLens MDL2 Assets" size="62.0" />
+         </font>
+      </Label>
+      <Button layoutX="316.0" layoutY="361.0" mnemonicParsing="false" onAction="#switchToBankScene" text="Return to the bank">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
