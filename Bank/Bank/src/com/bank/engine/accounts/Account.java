@@ -1,136 +1,150 @@
 package com.bank.engine.accounts;
 
-import com.bank.engine.utilitys.AccountFileUtilitys;
+import com.bank.engine.utilitys.DataBaseUtilitys;
 import com.bank.engine.utilitys.Logging;
 
 public abstract class Account {
 
-	private final String username;
-	private final String password;
-	private String firstName;
-	private String lastName;
-	private String state;
 	private String city;
-	private int zipCode;
-	private String street;
+	DataBaseUtilitys dataBase = new DataBaseUtilitys();
+	private String firstName;
 	private int houseNumber;
-
-	private final Logging LOGGER = new Logging(Account.class.getName());
-
 	private boolean isLoggedIn = false;
+	private String lastName;
+	private final Logging LOGGER = new Logging(Account.class.getName());
+	private final String password;
+	private String state;
+	private String street;
 
-	AccountFileUtilitys fileUtilitys = new AccountFileUtilitys();
+	private int userID;
 
-	public Account(final String username, final String password) {
+	private final String username;
+
+	private int zipCode;
+
+	protected Account(final String username, final String password) {
 		this.username = username;
 		this.password = password;
 	}
 
-	public void clearTransactions() {
+	protected void clearTransactions() {
 		this.LOGGER.success(this + " cleared transactions.");
-		this.fileUtilitys.clearTransactions(this);
+		// this.fileUtilitys.clearTransactions(this);
 	}
 
-	public void closeAccount() {
-		if (this.fileUtilitys.userLogin(this)) {
+	protected void closeAccount() {
+		if (this.isLoggedIn) {
 			this.LOGGER.success(this + " closed account.");
-			this.fileUtilitys.closeAccount(this);
+			this.dataBase.closeAccount(this);
 		} else {
 		}
 	}
 
-	public String fileUtilGetCity() {
+	public abstract AccountType dataBaseGetAccountType();
+
+	public String dataBaseGetCity() {
 		return this.city;
 	}
 
-	public String fileUtilGetFirstName() {
+	public String dataBaseGetFirstName() {
 		return this.firstName;
 	}
 
-	public int fileUtilGetHouseNumber() {
+	public int dataBaseGetHouseNumber() {
 		return this.houseNumber;
 	}
 
-	public String fileUtilGetLastName() {
+	public String dataBaseGetLastName() {
 		return this.lastName;
 	}
 
-	public String fileUtilGetState() {
+	public String dataBaseGetState() {
 		return this.state;
 	}
 
-	public String fileUtilGetStreet() {
+	public String dataBaseGetStreet() {
 		return this.street;
 	}
 
-	public int fileUtilGetZipcode() {
+	public int dataBaseGetUserID() {
+		return this.userID;
+	}
+
+	public int dataBaseGetZipCode() {
 		return this.zipCode;
 	}
 
-	public int getBalance() {
-		this.LOGGER.info(this + " balance " + this.fileUtilitys.getBalance(this));
-		return this.fileUtilitys.getBalance(this);
+	protected AccountType getAccountType() {
+		this.LOGGER.info(this + " account type: " + this.dataBase.getAccountType(this));
+		return this.dataBase.getAccountType(this);
 	}
 
-	public int getBankID() {
+	protected int getBalance() {
+		this.LOGGER.info(this + " balance " + this.dataBase.getBalance(this));
+		return this.dataBase.getBalance(this);
+	}
+
+	protected int getBankID() {
 		if (this.isLoggedIn) {
-			this.LOGGER.info(this + " BankID " + this.fileUtilitys.getBankID(this));
-			return this.fileUtilitys.getBankID(this);
+			this.LOGGER.info(this + " BankID " + this.dataBase.getBankID(this));
+			return this.dataBase.getBankID(this);
 		}
 		this.LOGGER.warn("Not logged in.");
 		return 0;
 	}
 
-	public String getCity() {
-		this.LOGGER.info(this + " city " + this.fileUtilitys.getCity(this));
-		return this.fileUtilitys.getCity(this);
+	protected String getCity() {
+		this.LOGGER.info(this + " city " + this.dataBase.getCity(this));
+		return this.dataBase.getCity(this);
 	}
 
-	public String getFirstName() {
-		return this.fileUtilitys.getFirstName(this);
+	protected String getFirstName() {
+		return this.dataBase.getFirstName(this);
 	}
 
-	public String getHouseNumber() {
-		this.LOGGER.info(this + " housenumber " + this.fileUtilitys.getHouseNumber(this));
-		return this.fileUtilitys.getHouseNumber(this);
+	protected int getHouseNumber() {
+		this.LOGGER.info(this + " housenumber " + this.dataBase.getHouseNumber(this));
+		return this.dataBase.getHouseNumber(this);
 	}
 
-	public String getLastName() {
-		this.LOGGER.info(this + " last name " + this.fileUtilitys.getLastName(this));
-		return this.fileUtilitys.getLastName(this);
+	protected String getLastName() {
+		this.LOGGER.info(this + " last name " + this.dataBase.getLastName(this));
+		return this.dataBase.getLastName(this);
 	}
 
-	public String getPassword() {
-		// LOGGER.info(this + " password " + this.password);
+	protected String getPassword() {
 		return this.password;
 	}
 
-	public String getPastTransactions() {
-		this.LOGGER.info(this + " Past transactions: " + this.fileUtilitys.getTransaction(this));
-		return this.fileUtilitys.getTransaction(this);
+	protected String getPastTransactions() {
+		return null;
 	}
 
-	public String getState() {
-		this.LOGGER.info(this + " state " + this.fileUtilitys.getState(this));
-		return this.fileUtilitys.getState(this);
+	protected String getState() {
+		this.LOGGER.info(this + " state " + this.dataBase.getState(this));
+		return this.dataBase.getState(this);
 	}
 
-	public String getStreet() {
-		this.LOGGER.info(this + " street " + this.fileUtilitys.getStreet(this));
-		return this.fileUtilitys.getStreet(this);
+	protected String getStreet() {
+		this.LOGGER.info(this + " street " + this.dataBase.getStreet(this));
+		return this.dataBase.getStreet(this);
 	}
 
-	public String getUsername() {
+	protected String getUsername() {
 		return this.username;
 	}
 
-	public String getZip() {
-		this.LOGGER.info(this + " zipcode " + this.fileUtilitys.getZipcode(this));
-		return this.fileUtilitys.getZipcode(this);
+	protected int getZip() {
+		this.LOGGER.info(this + " zipcode " + this.dataBase.getZip(this));
+		return this.dataBase.getZip(this);
 	}
 
-	public boolean login() {
-		if (this.fileUtilitys.userLogin(this)) {
+	protected boolean isLoggedIn() {
+		return this.isLoggedIn;
+	}
+
+	protected boolean login() {
+		if (this.dataBase.userLogin(this)) {
 			this.LOGGER.success(this + " succesfully logged in.");
 			this.isLoggedIn = true;
 			return true;
@@ -139,14 +153,19 @@ public abstract class Account {
 		return false;
 	}
 
-	public void openAccount() {
-		if (!this.fileUtilitys.doesUsernameExist(this)) {
+	protected void logout() {
+		this.isLoggedIn = false;
+	}
+
+	protected void openAccount() {
+		if (!this.dataBase.doesUsernameExist(this.getUsername())) {
+			this.userID = this.dataBase.getUniqueID();
 			this.LOGGER.success(this + " opened account.");
-			this.fileUtilitys.createNewUser(this);
+			this.dataBase.createNewUser(this);
 		}
 	}
 
-	public void setAddress(final String state, final String city, final int zipCode, final String street,
+	protected void setAddress(final String state, final String city, final int zipCode, final String street,
 			final int houseNumber) {
 		this.LOGGER.success("Address Set: " + state + " " + city + " " + zipCode + " " + street + " " + houseNumber);
 		this.state = state;
@@ -156,46 +175,40 @@ public abstract class Account {
 		this.houseNumber = houseNumber;
 	}
 
-	public void setBalance(final int amount, final String reason) {
-		if ((amount > 0) || ((amount < 0) && (this.getBalance() < amount))) {
-			this.fileUtilitys.setTransaction(this, amount, reason);
-		}
-	}
-
-	public void setName(final String firstName, final String lastName) {
+	protected void setName(final String firstName, final String lastName) {
 		this.LOGGER.success("Name Set: " + firstName + " " + lastName);
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
 
-	public void setTransaction(int amount, final String reason) {
+	protected void setTransaction(int amount, final String reason) {
 		// Bank transaction
 		if (amount > 0) {
 			this.LOGGER.success(this + " has deposited $" + amount);
-			this.fileUtilitys.setTransaction(this, this.getBalance() + amount, reason);
+			this.dataBase.setTransaction(this, this.getBalance() + amount);
 		} else if (amount < 0) {
 			amount *= -1;
 			if (this.getBalance() > amount) {
 				this.LOGGER.success(this + "has withdrew $" + amount);
-				this.fileUtilitys.setTransaction(this, this.getBalance() - amount, reason);
+				this.dataBase.setTransaction(this, this.getBalance() - amount);
 			} else {
 				this.LOGGER.warn(this + " does not have sufficient funds.");
 			}
 		}
 	}
 
-	public void setTransaction(final int amount, final String reason, final Account account) {
+	protected void setTransaction(final int amount, final String reason, final Account account) {
 		if (this.isLoggedIn) {
 			// User to user transaction
 			if (amount > 0) {
 				this.LOGGER.success(this + " has sent $" + amount + " to " + account);
-				this.fileUtilitys.setTransaction(this, this.getBalance() - amount, reason, account);
-				this.fileUtilitys.setTransaction(account, account.getBalance() + amount, reason, this);
+				this.dataBase.setTransaction(this, this.getBalance() - amount);
+				this.dataBase.setTransaction(account, account.getBalance() + amount);
 
 			} else if (amount < 0) {
 				if (this.getBalance() < amount) {
 					this.LOGGER.success(this + "has sent $" + amount + "to " + account);
-					this.fileUtilitys.setTransaction(this, this.getBalance() - amount, reason, account);
+					this.dataBase.setTransaction(this, this.getBalance() - amount);
 				} else {
 					this.LOGGER.warn(account + " does not have sufficient funds for this transaction.");
 				}
@@ -206,9 +219,5 @@ public abstract class Account {
 	@Override
 	public String toString() {
 		return this.username;
-	}
-
-	public boolean isLoggedIn() {
-		return isLoggedIn;
 	}
 }

@@ -1,8 +1,10 @@
 package com.bank.engine.javafx;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-import com.bank.engine.banking.Bank;
+import com.bank.engine.accounts.Bank;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,7 +39,7 @@ public class DepositSceneController extends Controller{
 	}
 
 	@Override
-	public void startScene() {
+	public void initialize(URL arg0, ResourceBundle arg1)  {
 		successDeposit.setVisible(false);
 		invalidAmount.setVisible(false);
 	}	

@@ -1,5 +1,6 @@
 package com.bank.engine.utilitys;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -82,6 +83,37 @@ public class Logging {
     	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
     	LocalDateTime now = LocalDateTime.now();   
     	System.out.println(this.name + " [" + dtf.format(now) + "] " + YELLOW + message + RESET);  
-    }   
+    }
+
+	public void info(Object message) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+    	LocalDateTime now = LocalDateTime.now();  
+    	System.out.println(this.name + " [" + dtf.format(now) + "] " + BLUE + "INFO: " + message + RESET);  
+	}
+
+	public void warn(SQLException message) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+    	LocalDateTime now = LocalDateTime.now();   
+    	System.out.println(this.name + " [" + dtf.format(now) + "] " + YELLOW + message + RESET);  
+	}   
+	
+	public void warn(ClassNotFoundException message) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+    	LocalDateTime now = LocalDateTime.now();   
+    	System.out.println(this.name + " [" + dtf.format(now) + "] " + YELLOW + message + RESET);  
+	}   
+	
+	public void warn(Exception message) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+    	LocalDateTime now = LocalDateTime.now();   
+    	System.out.println(this.name + " [" + dtf.format(now) + "] " + YELLOW + message + RESET);  
+	}
+
+	public void severe(Exception message) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+    	LocalDateTime now = LocalDateTime.now();   
+    	System.out.println(this.name + " [" + dtf.format(now) + "] " + YELLOW + message + RESET);  
+		
+	}   
  }
 

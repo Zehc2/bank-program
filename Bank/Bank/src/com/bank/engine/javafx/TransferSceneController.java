@@ -1,71 +1,76 @@
 package com.bank.engine.javafx;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import com.bank.engine.accounts.Account;
-import com.bank.engine.banking.Bank;
-import com.bank.engine.utilitys.AccountFileUtilitys;
+import com.bank.engine.accounts.Bank;
+import com.bank.engine.utilitys.DataBaseUtilitys;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-
 public class TransferSceneController extends Controller {
-	
+
 	Bank bank = new Bank();
 
-	private AccountFileUtilitys fileUtils = new AccountFileUtilitys();
-	
-	
+	DataBaseUtilitys dataBase = new DataBaseUtilitys();
+
 	@FXML
 	Label failedTransfer;
-	@FXML 
-	TextField transferTextField;
+	@FXML
+	Label successTransfer;
 	@FXML
 	TextField transfereeAccountTextField;
 	@FXML
-	Label successTransfer;
-	
-	@Override
-	protected void startScene() {
-		successTransfer.setVisible(false);
-		failedTransfer.setVisible(false);	
-	}	
+	TextField transferTextField;
 
-	public void transfer(ActionEvent e) throws IOException {
-		
-		successTransfer.setVisible(false);
-		failedTransfer.setVisible(false);
-		
-	try {
-			
-		String accountName = transfereeAccountTextField.getText();
-		Account transfereeAccount = fileUtils.getUserWithUsername(accountName);	
-		
-	try {
-		
-		LOGGER.info("Selected transfer button");
-		successTransfer.setVisible(false);
-		failedTransfer.setVisible(false);
-		
-		if(bank.transfer(Integer.valueOf(transferTextField.getText()), getAccount(), transfereeAccount)) {
-			successTransfer.setText("Successfully transfered $" + transferTextField.getText() + " to " + transfereeAccount);
-			successTransfer.setVisible(true);
-			transferTextField.clear();
-			transfereeAccountTextField.clear();
-		} else {
-			failedTransfer.setVisible(true);
+	@Override
+	public void initialize(final URL arg0, final ResourceBundle arg1) {
+		this.successTransfer.setVisible(false);
+		this.failedTransfer.setVisible(false);
+	}
+
+	public void transfer(final ActionEvent e) throws IOException {
+
+		this.successTransfer.setVisible(false);
+		this.failedTransfer.setVisible(false);
+
+		try {
+
+			final String accountName = this.transfereeAccountTextField.getText();
+			final Account transfereeAccount = this.dataBase.getUserWithUsername(accountName);
+
+			try {
+
+				this.LOGGER.info("Selected transfer button");
+				this.successTransfer.setVisible(false);
+				this.failedTransfer.setVisible(false);
+				if (this.bank.doesUserExist(accountName)) {
+					if (this.bank.transfer(Integer.parseInt(this.transferTextField.getText()), Controller.getAccount(),
+							transfereeAccount)) {
+						this.successTransfer.setText("Successfully transfered $" + this.transferTextField.getText()
+								+ " to " + transfereeAccount);
+						this.successTransfer.setVisible(true);
+						this.transferTextField.clear();
+						this.transfereeAccountTextField.clear();
+					} else {
+						this.failedTransfer.setVisible(true);
+					}
+				} else {
+
+				}
+			} catch (final NumberFormatException error) {
+				this.failedTransfer.setVisible(true);
+				this.LOGGER.warn(error);
+			}
+		} catch (final NullPointerException error) {
+			this.failedTransfer.setVisible(true);
+			this.LOGGER.warn(error + " User does not exist");
 		}
-		
-		} catch(NumberFormatException error) {
-			failedTransfer.setVisible(true);
-			LOGGER.warn(error);
-		}
-	} catch(NullPointerException error) {
-		failedTransfer.setVisible(true);
-		LOGGER.warn(error + " User does not exist");
-		}
+
 	}
 }

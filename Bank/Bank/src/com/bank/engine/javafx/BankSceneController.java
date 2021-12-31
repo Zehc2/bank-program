@@ -1,11 +1,11 @@
 package com.bank.engine.javafx;
 
-public class BankSceneController extends Controller {
+import java.net.URL;
+import java.util.ResourceBundle;
 
+public class BankSceneController extends Controller {
 	@Override
-	public void startScene() {
-		
+	public void initialize(URL arg0, ResourceBundle arg1)  {	
 	}
-	
 }
 
