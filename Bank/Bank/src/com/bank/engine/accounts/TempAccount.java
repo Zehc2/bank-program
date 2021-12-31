@@ -1,13 +1,14 @@
 package com.bank.engine.accounts;
 
-public class SavingsAccount extends Account {
+public class TempAccount extends Account {
 
-	public SavingsAccount(String username, String password)  {
+	protected TempAccount(String username, String password) {
 		super(username, password);
 	}
 
 	@Override
 	public AccountType dataBaseGetAccountType() {
-		return AccountType.SAVINGS;
+		return null;
 	}
+
 }

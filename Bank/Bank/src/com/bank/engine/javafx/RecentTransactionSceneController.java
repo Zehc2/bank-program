@@ -1,5 +1,8 @@
 package com.bank.engine.javafx;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -14,7 +17,7 @@ public class RecentTransactionSceneController extends Controller  {
 	}
 
 	@Override
-	protected void startScene() {
+	public void initialize(URL arg0, ResourceBundle arg1)  {
 		setTransactions();
 	}	
 }

@@ -1,7 +1,8 @@
 package com.bank.engine.javafx;
 
 import java.io.IOException;
-
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,8 +24,8 @@ public class CloseAccountSceneController extends Controller {
 	
 	public void closeAccount(ActionEvent e) throws IOException {
 		LOGGER.info("Selected close account button");	
-			if(password.getText().equals(super.getAccount().getPassword())) {
-				super.getAccount().closeAccount();
+			if(password.getText().equals(bank.getPassword(getAccount()))) {
+				bank.closeAccount(getAccount());
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("StartScene.fxml"));
 				root = loader.load();	
 				stage = (Stage)((Node)e.getSource()).getScene().getWindow();
@@ -37,8 +38,7 @@ public class CloseAccountSceneController extends Controller {
 	}
 
 	@Override
-	public void startScene() {
-		
+	public void initialize(URL arg0, ResourceBundle arg1)  {	
 	}
 	
 }

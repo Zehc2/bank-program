@@ -6,4 +6,8 @@ public class InvestmentAccount extends Account {
 		super(username, password);
 	}
 
+	@Override
+	public AccountType dataBaseGetAccountType() {
+		return AccountType.INVESTMENT;
+	}
 }
